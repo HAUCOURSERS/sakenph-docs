@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5c084a5-2d8a-408c-b4e2-bf1ee5170206" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/dev-guide/intro.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/test.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/intro.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="a5c084a5-2d8a-408c-b4e2-bf1ee5170206" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
