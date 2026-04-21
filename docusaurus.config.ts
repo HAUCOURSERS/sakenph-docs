@@ -13,9 +13,14 @@ const config: Config = {
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
-
+  themes: ['@docusaurus/theme-mermaid'],
+  // In order for Mermaid code blocks in Markdown to work,
+  // you also need to enable the Remark plugin with this option
+  markdown: {
+    mermaid: true,
+  },
   // Set the production url of your site here
-  url: 'https://haucoursers.github.io',   
+  url: 'https://haucoursers.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/sakenph-docs/',
@@ -78,11 +83,6 @@ const config: Config = {
           sidebarId: 'DeveloperGuide',
           position: 'left',
           label: 'Developer Guide',
-        },
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
         },
       ],
     },
