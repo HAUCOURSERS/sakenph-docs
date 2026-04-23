@@ -18,4 +18,5 @@ Right now, you have to manually input your ip.
 ## Go to the backend codebase and install uvicorn
 - `pip install uvicorn`  
 And then run  
-- `uvicorn main:app`
+- `uvicorn main:app --host 0.0.0.0`
+And then enable an android emulator and run `flutter run`
