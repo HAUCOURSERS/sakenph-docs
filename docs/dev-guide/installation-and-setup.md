@@ -12,8 +12,8 @@ Right now, you have to manually input your ip.
 ## Get your local ip
 ![alt text](/dev-guide/image.png) 
 
-## Paste your ip in map_widget.dart for front-end
-![alt text](/dev-guide/image2.jpg)
+## Paste your ip in \lib\globals\global_vars.dart for front-end
+![alt text](/dev-guide/image2.png)
 
 ## Go to the backend codebase and install uvicorn
 - `pip install uvicorn`  
