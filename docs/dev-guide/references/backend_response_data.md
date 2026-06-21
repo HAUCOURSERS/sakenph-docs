@@ -1,7 +1,6 @@
-# 🗺 Information and References
-- This page is made because I need to analyze the data given by backend to be reformatted and organized in the frontend
+# Backend Response Data Format
+- The geometry data from backend puts longitude first before latitude due to GeoJSON
 
-## Sample Route JSON from Backend
 - AUF International House -> Newpoint
 ```
 {
