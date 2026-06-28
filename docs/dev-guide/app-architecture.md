@@ -1,67 +1,59 @@
 # App Architecture
 
+## Top Layer
+- Consists of app initialization code and the location of the primary widgets
 ```mermaid
 flowchart TD
     main(["main.dart"])
-    subgraph home_page.dart
-        homePage["Creation of <code>HomePage()</code>"]
-        init["<code>initState()</code> to run <code>fetchData()</code> to test backend connection"]
+    main --> inittProviders["Initialize Providers"]
+    main --> buildWidget["Build HomePage Widget"]
 
-        buildApp["<code>build()</code> to create the app"]
+    buildWidget --> initState["initState()"]
 
-        home_inputs["<code>Center()</code> widget"]
-        home_select_loc["Nominatim Public API
-            is used to perform the query"]
-        home_selection_of_locations["A dropdown list shows up with list of suggested locations"]
-        
+    initState --> getUserLoc["Get user loc and save"]
+    initState --> mountToSysTaskProvider["Mount providers to SystemTasksProvider"]
+    initState --> initPrimaryWidgets["Initialize primary widgets"]
 
-    end
+    initPrimaryWidgets --> MapWidget["MapWidget"]
+    initPrimaryWidgets --> BackgroundWidget["BackgroundWidget"]
+    initPrimaryWidgets --> ForeGroundWidget["ForegroundWidget"]
 
-    subgraph map_widget.dart
-        map_widget["<code>MapWidget()</code>"]
-        map_init["<code>initState()</code> to run <code>_loadStyle()</code> so it could build the map display"]
-        map_todaClick["(UNUSED FOR NOW)<code>clickedTLayer()</code>"]
-        map_shortestPath["<code>shortestPath()</code>"]
+```
+### Layering Visual
+![](/img/layer_visual.jpg)
+
+:::info
+It's assembled this way in order to easily manage what widgets to appear based on app state
+:::
+
+## Primary Widgets
+
+### Foreground Widget
+```mermaid
+flowchart TD
+    start(["start"]) -->
+    providers["SearchDetailsProvider, SystemVariablesProvider"] -->
+    listenForVals["Listen for isFromLocationDetailsEmpty, suggestedShortestPaths.isNotEmpty, appCurrentState, backgroundWidgetVisibility"]
+
+    listenForVals -- "systemState value" --> 
+    switchCase{"Switch Case<br/>for systemState<br/> value"} --> 
+    renderWidgetAccordingly["Render widgets according to code logic"]
     
-    end
 
-    subgraph providers
-        subgraph LatLongProvider
 
-        end
-    end
+```
 
-    %% ============================
+### Background Widget
+```mermaid
+flowchart TD
+    start(["Start"]) -->
+    systemVariablesProvider["Get info from SystemVariablesProvider"] -->
+    listenForVals["Listen for backgroundWidgetVisibility, appCurrentState, backgroundWidgetColor values"]
+    listenForVals -- "backgroundWidgetColor value" --> adjustBackgroundWidgetColor["Adjust the Background Widget's color accordingly"]
+    listenForVals -- "backgroundWidgetVisibility value" --> adjustVisibility{"Background<br/>Widget Visibility"}
+    adjustVisibility -- "true" --> adjustVisibilityTrue["Background Widget will be visible"]
+    adjustVisibility -- "false" --> adjustVisibilityFalse["Background Widget will be invisible. GestureDetector functions will not work"]
+    listenForVals -- "appCurrentState value" --> performSwitchCase["Perform Switch Case"]
 
-    main --> homePage
-    main -- "initializes providers" --> providers
-
-    %% ============================
-
-    homePage --> init
-    homePage --> buildApp
-    
-    %% ============================
-
-    buildApp --> home_inputs
-    home_inputs -- "User enters text to query for a location" --> home_select_loc
-    home_select_loc -- "After querying is done, the public api returns a json of suggested locations" --> home_selection_of_locations
-    home_selection_of_locations -- "User selects a suggested location and submits the lat-lon details" --> LatLongProvider
-
-    buildApp --> map_widget
-
-    %% ============================
-
-    map_widget --> map_init
-    map_widget --> map_todaClick
-    map_widget --> map_shortestPath
-
-    %% ============================
-
-    LatLongProvider -- "After receiving the lat-lon details of Origin and Destination, it notifies listeners of this provider" --> map_widget
-
-    %% ============================
-
-    classDef userInput fill:#858722
-    class home_inputs userInput
+    performSwitchCase -- "SystemState.value" --> willDisplayWidgetAccordingly["Will display widgets according to the code's logic"] 
 ```
