@@ -86,6 +86,12 @@ const config: Config = {
           position: 'left',
           label: 'Developer Guide',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'BackendAlgorithm',
+          position: 'left',
+          label: 'Backend Algorithm',
+        },
       ],
     },
     footer: {
