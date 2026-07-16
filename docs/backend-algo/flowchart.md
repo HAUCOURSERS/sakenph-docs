@@ -1,7 +1,8 @@
 ---
 sidebar_position: 2
 ---
-# Logic Flow
+# Flowchart
+- Descriptions are written context-wise and the finer details like extra iterations aren't mentioned.
 
 ```mermaid
 flowchart TD
@@ -79,6 +80,27 @@ flowchart TD
     RouteListIteration
 
     subgraph RouteListIteration
-    end
+        
+        makeBlockScopeVariable["Make a block scope variable about permutation per route item"] --> RouteLengthIteration
+        subgraph RouteLengthIteration
+            permutationVariable["Permutation Variable"]
 
+            permutationVariable -- "Not Empty" -->
+            permutationYes["Get mode type of node"]
+            -->
+            removeBoundSuffix["Remove bound suffix in the mode type"]
+            -->
+            appendModeToPermutation["Append node mode to permutation variable if previous node mode is not the same as current node mode"]
+
+            permutationVariable -- "Empty" -->
+            permutationNo["Get mode type of node and save it to permutation variable"]
+        end
+
+        RouteLengthIteration --> 
+        permutationCheck["If <code>permutation</code> not in <code>permutationList</code> then append route to <code>routeList</code> and permutation to <code>permutationList</code>"]
+        -->
+        buildReturJSON["Build the return JSON object back to frontend"]
+        -->
+        finish["FINISH"]
+    end
 ```
